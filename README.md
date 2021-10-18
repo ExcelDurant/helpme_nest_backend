@@ -1,3 +1,14 @@
+# helpme-vue
+
+## Overview
+
+This is a project which deals with connecting people who need tasks to be done with helpers(task doers). In this platform, users will be able to create tasks(for example house chores, technician work, repairs, etc) which can be completed in less than a day, and will attach the amount he is willing to pay upon completion of the task. Helpers(users/freelancers) will be able to view tasks and find the ones they are able to do
+<br>
+<br>
+#### MORE UPDATES COMING LATER...
+<br>
+<br>
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
@@ -22,9 +33,6 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
 
@@ -58,16 +66,11 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+### Tech Stack
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- Frontend: Vue3 + Vuex4 + Typescript + Babel + PWA
+- Backend: NestJs(ExpressJs + NodeJs + Fastify + Typescript)
+- Database: MongoDB + Redis
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
-
-Nest is [MIT licensed](LICENSE).
