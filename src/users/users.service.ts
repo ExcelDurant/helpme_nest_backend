@@ -26,7 +26,14 @@ export class UsersService {
         return createdUser.save();
       }
 
-    async findOne(email: string): Promise<any | undefined> {
-        return this.users.find(user => user.email === email);
+    async findOne(email: string): Promise<User | undefined> {
+        const user = await this.userModel.findOne({email:email})
+        return user;
+        // return this.users.find(user => user.email === email);
     }
+
+    async findAll(): Promise<User> {
+        const users = await this.userModel.findOne({email:"gnopaexcel@yahoo.fr"});
+        return users;
+      }
 }
