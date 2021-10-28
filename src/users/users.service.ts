@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User,UserDocument } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
+// import { UserInterface } from '../../dist/users/interfaces/user.interface';
 
 
 @Injectable()
@@ -35,5 +36,11 @@ export class UsersService {
     async findAll(): Promise<User> {
         const users = await this.userModel.findOne({email:"gnopaexcel@yahoo.fr"});
         return users;
-      }
+    }
+
+    async getUserDetails(id:string): Promise<any | undefined> {
+        const user = await this.userModel.findById(id);
+        const { password, ...result } = user;
+        return result;
+    }
 }
