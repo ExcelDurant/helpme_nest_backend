@@ -9,19 +9,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 @Injectable()
 export class UsersService {
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
-    private readonly users = [
-        {
-            userId: 1,
-            email:'john@gmail.com',
-            password: 'changeme',
-        },
-        {
-            userId: 2,
-            email: 'maria@gmail.com',
-            password: 'guess',
-        },
-    ];
-
     async createUser(createUserDto: CreateUserDto): Promise<any> {
         const createdUser = new this.userModel(createUserDto);
         return createdUser.save();
