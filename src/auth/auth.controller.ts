@@ -1,12 +1,13 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 import { UsersService } from '../users/users.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService, private usersService:UsersService) { }
+    constructor(private authService: AuthService, private usersService: UsersService) { }
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
@@ -19,6 +20,14 @@ export class AuthController {
         return this.authService.signup(body);
     }
 
+
+    @Post('profile-pic')
+    @UseInterceptors(FileInterceptor('file'))
+    uploadFile(@UploadedFile() file: Express.Multer.File) {
+        console.log(file);
+    }
+
+
     @UseGuards(JwtAuthGuard)
     @Get('profile')
     async getProfile(@Request() req) {
@@ -26,8 +35,8 @@ export class AuthController {
         const user = await this.usersService.getUserDetails(req.user._id);
         const { password, ...result } = user._doc;
         return {
-            payload:payload,    
-            user:result
+            payload: payload,
+            user: result
         }
     }
 

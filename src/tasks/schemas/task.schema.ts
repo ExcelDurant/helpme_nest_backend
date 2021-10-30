@@ -16,13 +16,13 @@ export class Task {
 
 
     _id: string
-    @Prop()
+    @Prop({ required: true })
     name: string;
 
-    @Prop()
+    @Prop({ required: true })
     description: string;
 
-    @Prop()
+    @Prop({ required: true })
     category: string[];
 
     @Prop({ type: { country: { type: String }, city: { type: String }, street: { type: String } } })
@@ -32,8 +32,11 @@ export class Task {
         street: string;
     };
 
-    @Prop()
-    location: string;
+    @Prop({ type: { latitude: { type: String }, longitude: { type: String } } })
+    location: {
+        latitude:string;
+        longitude:string;
+    };
 
     @Prop({ default: Date.now })
     start_date: Date;
@@ -41,14 +44,17 @@ export class Task {
     @Prop()
     end_date: Date;
 
-    @Prop()
+    @Prop({ required: true })
     reward: number;
 
     @Prop()
     pictures: string[];
 
-    @Prop()
+    @Prop({ default: 0 })
     proposals: number;
+
+    @Prop({ default:[] })
+    proposers: User[];
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
     assigned_to: User;
