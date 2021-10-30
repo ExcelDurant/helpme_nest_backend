@@ -21,6 +21,15 @@ export class TasksController {
         return this.tasksService.addProposal(proposer, taskId);
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Post('assign')
+    async assignTask(@Body() body, @Request() req) {
+        let creator = req.user._id;
+        let proposer = body.proposer_id;
+        let taskId = body.task_id;
+        return this.tasksService.assignTask(creator, proposer, taskId);
+    }
+
     @Get('retrieve')
     async getTasks(@Query('page') page) {
         page = parseInt(page);
@@ -31,6 +40,5 @@ export class TasksController {
             const tasks = await this.tasksService.getTasks(page);
             return tasks;
         }  
-        
     }
 }

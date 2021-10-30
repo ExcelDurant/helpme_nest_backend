@@ -22,15 +22,30 @@ export class TasksService {
     }
 
     // adds a proposal to the task
-    async addProposal(proposer, taskId) {
+    async addProposal(proposer, taskId:string) {
         let task = await this.TaskModel.findById(taskId);
-        task.proposals += 1;
         if(task.proposers.includes(proposer)) {
             throw new BadRequestException('you are already a proposer');
         }
+        task.proposals += 1;
         task.proposers.push(proposer);
         task = await task.save();
         return task;
 
+    }
+
+    async assignTask(creator, proposer, taskId:string) {
+        let task = await this.TaskModel.findById(taskId);
+        if(task.created_by._id != creator){
+            // throw new BadRequestException('you are not the task creator');
+            return task.created_by._id;
+        }
+        if(task.assigned_to != null) {
+            throw new BadRequestException('someone has already been assigned to this task');
+        }
+        task.assigned_to = proposer;
+        task.status = "assigned";
+        task = await task.save();
+        return task;
     }
 }

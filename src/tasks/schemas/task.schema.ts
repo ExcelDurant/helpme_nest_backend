@@ -25,7 +25,7 @@ export class Task {
     @Prop({ required: true })
     category: string[];
 
-    @Prop({ type: { country: { type: String }, city: { type: String }, street: { type: String } } })
+    @Prop({ type: { country: { type: String }, city: { type: String }, street: { type: String } }, required:true })
     address: {
         country: string;
         city: string;
