@@ -15,7 +15,7 @@ export class TasksService {
 
     // gets and paginate tasks
     async getTasks(page?:number):Promise<any> {
-        let perPage = 5;
+        let perPage = 20;
         let currentPage = page;
         const tasks = await this.TaskModel.find().sort({name:1}).limit(perPage).skip(perPage * currentPage);
         return tasks;
@@ -37,8 +37,7 @@ export class TasksService {
     async assignTask(creator, proposer, taskId:string) {
         let task = await this.TaskModel.findById(taskId);
         if(task.created_by._id != creator){
-            // throw new BadRequestException('you are not the task creator');
-            return task.created_by._id;
+            throw new BadRequestException('you are not the task creator');
         }
         if(task.assigned_to != null) {
             throw new BadRequestException('someone has already been assigned to this task');

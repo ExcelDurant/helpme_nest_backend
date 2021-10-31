@@ -1,16 +1,24 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Req, Request, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { GoogleService } from '../google/google.service';
 
 @Controller('tasks')
 export class TasksController {
-    constructor(private tasksService:TasksService) {}
+    constructor(private tasksService:TasksService, private googleService:GoogleService) {}
     
     @UseGuards(JwtAuthGuard)
     @Post('create')
     async createTask(@Body() body, @Request() req) {
         body.created_by = req.user._id;
         return this.tasksService.createTask(body);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('locate')
+    async taskAddress(@Query('latitude') latitude, @Query('longitude') longitude) {
+        let results = await this.googleService.getAddress(latitude, longitude);
+        return results;
     }
 
     @UseGuards(JwtAuthGuard)
