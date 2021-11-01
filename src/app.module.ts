@@ -10,7 +10,7 @@ import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule.forRoot(),AuthModule, UsersModule,MongooseModule.forRoot('mongodb://localhost:27017/helpme'), TasksModule, HttpModule],
+  imports: [ConfigModule.forRoot(),AuthModule, UsersModule,MongooseModule.forRoot(`mongodb://localhost:${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`), TasksModule, HttpModule],
   controllers: [AppController],
   providers: [AppService, GoogleService],
 })

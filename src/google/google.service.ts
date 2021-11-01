@@ -11,6 +11,7 @@ export class GoogleService {
         let API_KEY = process.env.GOOGLE_MAPS_API_KEY
         return this.httpService.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`) .pipe(
             map(response => {
+                console.log(response);
                 return {
                     // street:response.data.results,
                     street:response.data.results[2].address_components[0].long_name,
