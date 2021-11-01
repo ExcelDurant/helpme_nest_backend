@@ -37,4 +37,9 @@ export class UsersService {
         helper = await this.userModel.findById(user._id);
         return helper;
     }
+
+    async getHelpers() {
+        let helpers = await this.userModel.find({is_helper:true});
+        return helpers;
+    }
 }
