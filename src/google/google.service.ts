@@ -8,7 +8,7 @@ export class GoogleService {
     constructor(private httpService: HttpService) {}
 
     getAddress(latitude, longitude): any {
-        let API_KEY = ""
+        let API_KEY = process.env.GOOGLE_MAPS_API_KEY
         return this.httpService.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`) .pipe(
             map(response => {
                 return {
