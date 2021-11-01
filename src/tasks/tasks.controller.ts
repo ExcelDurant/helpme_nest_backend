@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Req, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Post, Query, Req, Request, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { GoogleService } from '../google/google.service';
@@ -19,6 +19,23 @@ export class TasksController {
     async taskAddress(@Query('latitude') latitude, @Query('longitude') longitude) {
         let results = await this.googleService.getAddress(latitude, longitude);
         return results;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('update')
+    async updateTask(@Body() body, @Request() req) {
+        let creator = req.user._id;
+        let updatedTask = await this.tasksService.updateTask(body, creator);
+        return updatedTask;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('delete')
+    @HttpCode(200)
+    async deleteTask(@Body() body, @Request() req) {
+        let creator = req.user._id;
+        let deletedTask = await this.tasksService.deleteTask(body, creator);
+        return 'task successfully deleted';
     }
 
     @UseGuards(JwtAuthGuard)

@@ -47,4 +47,21 @@ export class TasksService {
         task = await task.save();
         return task;
     }
+
+    async updateTask(task, creator) {
+        if(task.created_by != creator){
+            throw new BadRequestException('you are not the task creator');
+        }
+        let updatedTask = await this.TaskModel.findByIdAndUpdate(task._id, task);
+        updatedTask= await this.TaskModel.findById(task._id);
+        return updatedTask;
+    }
+
+    async deleteTask(task, creator) {
+        if(task.created_by != creator){
+            throw new BadRequestException('you are not the task creator');
+        }
+        let deletedTask = await this.TaskModel.findOneAndRemove({_id:task._id});
+        return deletedTask;
+    }
 }
