@@ -30,4 +30,11 @@ export class UsersService {
         const { password, ...result } = user;
         return result;
     }
+
+    async makeHelper(user) {
+        user.is_helper = true;
+        let helper = await this.userModel.findByIdAndUpdate(user._id, user);
+        helper = await this.userModel.findById(user._id);
+        return helper;
+    }
 }

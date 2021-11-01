@@ -19,6 +19,9 @@ export class User {
   @Prop({ required: true })
   phone_number: string;
 
+  @Prop()
+  sec_phone_number: string;
+
   @Prop({ required: true })
   password: string;
 
@@ -31,7 +34,7 @@ export class User {
   @Prop()
   street: string;
 
-  @Prop()
+  @Prop({default:"https://4.bp.blogspot.com/-txKoWDBmvzY/XHAcBmIiZxI/AAAAAAAAC5o/wOkD9xoHn28Dl0EEslKhuI-OzP8_xvTUwCLcBGAs/s1600/2.jpg"})
   photoUrl: string;
 
   @Prop()
@@ -59,6 +62,9 @@ export class User {
   skills: string[];
 
   @Prop()
+  job: string;
+
+  @Prop()
   categories: string[];
 
   @Prop()
@@ -66,6 +72,9 @@ export class User {
 
   @Prop()
   education: string;
+
+  @Prop()
+  birthday: Date;
 
   @Prop()
   cash: number;

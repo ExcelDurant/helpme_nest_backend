@@ -34,10 +34,7 @@ export class AuthController {
         const payload = req.user;
         const user = await this.usersService.getUserDetails(req.user._id);
         const { password, ...result } = user._doc;
-        return {
-            payload: payload,
-            user: result
-        }
+        return result;
     }
 
     @UseGuards(JwtAuthGuard)
