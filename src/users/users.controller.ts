@@ -13,7 +13,7 @@ export class UsersController {
         return updatedUser;
     }
 
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     @Get('helpers')
     async getHelpers(@Body() body, @Request() req) {
         let helpers = await this.usersService.getHelpers(); 

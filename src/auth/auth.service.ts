@@ -40,9 +40,11 @@ export class AuthService {
             sub: _id,
             email: email
         };
+        let signedUser = result._doc;
+        delete signedUser.password;
         return {
             access_token: this.jwtService.sign(payload),
-            user: result._doc as User
+            user: signedUser as User
         }
     }
 }

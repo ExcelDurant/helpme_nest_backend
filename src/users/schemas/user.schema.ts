@@ -52,10 +52,10 @@ export class User {
   @Prop()
   is_verified: number;
 
-  @Prop()
+  @Prop({default:0})
   reviews_number: number;
 
-  @Prop()
+  @Prop({default:0})
   average_reviews: number;
 
   @Prop()
