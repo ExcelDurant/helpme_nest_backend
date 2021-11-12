@@ -38,6 +38,12 @@ export class UsersService {
         return helper;
     }
 
+    async updateUser(user) {
+        let updatedUser = await this.userModel.findByIdAndUpdate(user._id, user);
+        updatedUser = await this.userModel.findById(user._id);
+        return updatedUser;
+    }
+
     async getHelpers() {
         let helpers = await this.userModel.find({is_helper:true});
         return helpers;

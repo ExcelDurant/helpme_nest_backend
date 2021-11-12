@@ -5,8 +5,8 @@ import { GoogleService } from '../google/google.service';
 
 @Controller('tasks')
 export class TasksController {
-    constructor(private tasksService:TasksService, private googleService:GoogleService) {}
-    
+    constructor(private tasksService: TasksService, private googleService: GoogleService) { }
+
     @UseGuards(JwtAuthGuard)
     @Post('create')
     async createTask(@Body() body, @Request() req) {
@@ -58,12 +58,29 @@ export class TasksController {
     @Get('retrieve')
     async getTasks(@Query('page') page) {
         page = parseInt(page);
-        if(isNaN(page)) {
+        if (isNaN(page)) {
             const tasks = await this.tasksService.getTasks();
             return tasks;
         } else {
             const tasks = await this.tasksService.getTasks(page);
             return tasks;
-        }  
+        }
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('mine')
+    async getUserTasks(@Request() req) {
+        let creator = req.user._id;
+        const tasks = await this.tasksService.getUserTasks(creator);
+        return tasks;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    async findOne(@Param() params) {
+        console.log(params.id);
+        const task = await this.tasksService.getTaskId(params.id)
+        return task;
+    }
+
 }

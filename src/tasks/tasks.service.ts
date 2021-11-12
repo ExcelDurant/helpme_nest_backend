@@ -13,11 +13,23 @@ export class TasksService {
         return createdTask.save();
     }
 
+    async getTaskId(id:string) {
+        const task = await this.TaskModel.findById(id);
+        return task;
+    }
+
     // gets and paginate tasks
     async getTasks(page?:number):Promise<any> {
         let perPage = 20;
         let currentPage = page;
-        const tasks = await this.TaskModel.find().sort({name:1}).limit(perPage).skip(perPage * currentPage);
+        const tasks = await this.TaskModel.find()
+        // .sort({name:1}).limit(perPage).skip(perPage * currentPage);
+        return tasks;
+    }
+
+    // get user tasks
+    async getUserTasks(creator:any):Promise<any> {
+        const tasks = await this.TaskModel.find({created_by:creator})
         return tasks;
     }
 

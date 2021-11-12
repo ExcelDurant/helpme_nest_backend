@@ -13,7 +13,7 @@ export class GoogleService {
             map(response => {
                 console.log(response);
                 return {
-                    // street:response.data.results,
+                    // street:response.data,
                     street:response.data.results[2].address_components[0].long_name,
                     city:response.data.results[2].address_components[1].long_name,
                     country:response.data.results[2].address_components[4].long_name

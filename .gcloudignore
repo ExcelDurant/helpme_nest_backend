@@ -14,5 +14,7 @@
 .gitignore
 dist/
 
+package-lock.json
+
 # Node.js dependencies:
 node_modules/

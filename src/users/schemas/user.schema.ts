@@ -50,7 +50,7 @@ export class User {
   completed_tasks: number;
 
   @Prop()
-  is_verified: number;
+  is_verified: boolean;
 
   @Prop({default:0})
   reviews_number: number;

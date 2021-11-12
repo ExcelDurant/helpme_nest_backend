@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, UseGuards, Request, Get } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UseGuards, Request, Get, Param } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UsersService } from './users.service';
 
@@ -10,6 +10,13 @@ export class UsersController {
     @Post('become_helper')
     async makeHelper(@Body() body, @Request() req) {
         let updatedUser = await this.usersService.makeHelper(body);
+        return updatedUser;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('update/profile')
+    async updateUser(@Body() body, @Request() req) {
+        let updatedUser = await this.usersService.updateUser(body);
         return updatedUser;
     }
 
@@ -25,6 +32,14 @@ export class UsersController {
             return attributes;
         })
         return helpersList;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    async findOne(@Param() params) {
+        console.log(params.id);
+        const user = await this.usersService.getUserDetails(params.id);
+        return user;
     }
 
 }
